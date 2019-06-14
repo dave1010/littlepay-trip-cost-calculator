@@ -1,6 +1,6 @@
 package com.dekelpilli.tripcostcalculator.model;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,19 +10,19 @@ import java.time.OffsetDateTime;
 @Setter
 public class Tap {
 
-    @JsonAlias("ID")
+    @JsonProperty("ID")
     private int id;
-    @JsonAlias("DateTimeUTC")
+    @JsonProperty("DateTimeUTC")
     private OffsetDateTime offsetDateTime;
-    @JsonAlias("TapType")
+    @JsonProperty("TapType")
     private TapType tapType;
-    @JsonAlias("StopId")
+    @JsonProperty("StopId")
     private String stopId;
-    @JsonAlias("CompanyId")
+    @JsonProperty("CompanyId")
     private String companyId;
-    @JsonAlias("BusID")
+    @JsonProperty("BusID")
     private String busId;
-    @JsonAlias("PAN")
+    @JsonProperty("PAN")
     private String primaryAccountNumber;
 
 }

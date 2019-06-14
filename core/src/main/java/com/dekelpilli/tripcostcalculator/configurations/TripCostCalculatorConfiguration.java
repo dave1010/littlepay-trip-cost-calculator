@@ -6,6 +6,9 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import java.math.BigDecimal;
+import java.util.Set;
+
 
 @Getter
 @Setter
@@ -13,4 +16,12 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "trip-cost-calculator")
 public class TripCostCalculatorConfiguration {
     private String input;
+    private String output;
+    private Set<CostMapping> costMappings;
+
+    @Setter
+    private static class CostMapping {
+        private Set<String> stops;
+        private BigDecimal  cost;
+    }
 }
