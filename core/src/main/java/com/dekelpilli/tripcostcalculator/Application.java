@@ -14,6 +14,5 @@ public class Application implements CommandLineRunner {
     private final TripCostCalculationService tripCostCalculationService;
 
     public void run(String... args) {
-
     }
 }

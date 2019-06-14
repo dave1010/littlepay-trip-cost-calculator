@@ -1,3 +1,6 @@
 spring:
   application:
     name: Trip Cost Calculator
+
+trip-cost-calculator:
+  input: input/taps.csv
