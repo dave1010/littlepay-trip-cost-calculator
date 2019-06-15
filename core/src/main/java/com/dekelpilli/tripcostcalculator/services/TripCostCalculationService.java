@@ -1,10 +1,13 @@
 package com.dekelpilli.tripcostcalculator.services;
 
+import com.dekelpilli.tripcostcalculator.calcluators.TripCostCalculator;
 import com.dekelpilli.tripcostcalculator.configurations.TripCostCalculatorConfiguration;
+import com.dekelpilli.tripcostcalculator.factories.TripCostCalculatorFactory;
 import com.dekelpilli.tripcostcalculator.io.CsvFileReader;
-import com.dekelpilli.tripcostcalculator.model.Status;
 import com.dekelpilli.tripcostcalculator.model.Tap;
 import com.dekelpilli.tripcostcalculator.model.Trip;
+import com.dekelpilli.tripcostcalculator.model.TripStatus;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -15,12 +18,15 @@ public class TripCostCalculationService {
 
     private final String inputFileName;
     private final CsvFileReader csvFileReader;
+    private final TripCostCalculatorFactory tripCostCalculatorFactory;
 
     public TripCostCalculationService(TripCostCalculatorConfiguration tripCostCalculatorConfiguration,
+                                      TripCostCalculatorFactory tripCostCalculatorFactory,
                                       CsvFileReader csvFileReader) {
         inputFileName = tripCostCalculatorConfiguration.getInput();
 
         this.csvFileReader = csvFileReader;
+        this.tripCostCalculatorFactory = tripCostCalculatorFactory;
     }
 
     public void calculateTripCosts() {
@@ -36,45 +42,52 @@ public class TripCostCalculationService {
                     break;
                 case OFF:
                     Tap tapOn = touchedOnUsers.get(primaryAccountNumber);
-                    // TODO: cost calc interface for each status enum
-                    // TODO: mapstruct
                     Trip trip = createTripFromTapPair(tapOn, tap);
                     trips.add(trip);
                     touchedOnUsers.remove(primaryAccountNumber);
             }
         });
-        //TODO: for remaining items in touchedOnUsers, calc as incomplete trips
+        touchedOnUsers.values().forEach(tapOn ->
+                trips.add(createTripFromTapPair(tapOn, null, TripStatus.INCOMPLETE))
+        );
+        //TODO: write trips
     }
 
-    private Trip createTripFromTapPair(Tap tapOn, Tap tapOff) {
+    private Trip createTripFromTapPair(Tap tapOn, @Nullable Tap tapOff, TripStatus tripStatus) {
         Trip trip = new Trip();
         Date tapOnTime  = tapOn.getTapTime();
-        Date tapOffTime = tapOff.getTapTime();
         trip.setStarted(tapOnTime);
-        trip.setFinished(tapOffTime);
-        trip.setDurationSeconds(calculateTripDurationSeconds(tapOnTime, tapOffTime));
+        if (tapOff != null) {
+            Date tapOffTime = tapOff.getTapTime();
+            trip.setFinished(tapOffTime);
+            trip.setDurationSeconds(calculateTripDurationInSeconds(tapOnTime, tapOffTime));
 
-        trip.setBusId(tapOff.getBusId());
-        trip.setFromStopId(tapOn.getStopId());
-        trip.setToStopId(tapOff.getStopId());
-        trip.setCompanyId(tapOff.getCompanyId());
-        trip.setPrimaryAccountNumber(tapOff.getPrimaryAccountNumber());
-        if (Status.CANCELLED.equals(getTripStatus(tapOn, tapOff))) {
-            trip.setChargeAmount("0.00");
-            trip.setTripStatus(Status.CANCELLED);
+            trip.setToStopId(tapOff.getStopId());
         }
-        //TODO: completed
+
+        trip.setBusId(tapOn.getBusId());
+        trip.setFromStopId(tapOn.getStopId());
+        trip.setCompanyId(tapOn.getCompanyId());
+        trip.setPrimaryAccountNumber(tapOn.getPrimaryAccountNumber());
+
+        TripCostCalculator tripCostCalculator = tripCostCalculatorFactory.getCalculatorForStatus(tripStatus);
+        trip.setChargeAmount(tripCostCalculator.calculateChargeAmount(tapOn, tapOff));
+        trip.setTripStatus(tripStatus);
         return trip;
     }
 
-    private static long calculateTripDurationSeconds(Date tapOnTime, Date tapOffTime) {
+    private Trip createTripFromTapPair(Tap tapOn, Tap tapOff) {
+        return createTripFromTapPair(tapOn, tapOff, getTripStatus(tapOn, tapOff));
+    }
+
+    private static long calculateTripDurationInSeconds(Date tapOnTime, Date tapOffTime) {
         return TimeUnit.MILLISECONDS.toSeconds(tapOffTime.getTime() - tapOnTime.getTime());
     }
 
-    private static Status getTripStatus(Tap tapOn, Tap tapOff) {
+    private static TripStatus getTripStatus(Tap tapOn, Tap tapOff) {
         if (tapOn.getStopId().equals(tapOff.getStopId())) {
-            return Status.CANCELLED;
+            return TripStatus.CANCELLED;
         }
-        return Status.COMPLETED;
+        return TripStatus.COMPLETED;
     }
 }

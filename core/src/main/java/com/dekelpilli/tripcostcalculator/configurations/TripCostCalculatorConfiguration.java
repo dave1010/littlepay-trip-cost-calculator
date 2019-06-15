@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.Collection;
 
 
 @Getter
@@ -18,11 +18,12 @@ public class TripCostCalculatorConfiguration {
     private String input;
     private String output;
     private String currencySymbol;
-    private Set<CostMapping> costMappings;
+    private Collection<CostMapping> costMappings;
 
     @Setter
-    private static class CostMapping {
-        private Set<String> stops;
+    @Getter
+    public static class CostMapping {
+        private Collection<String> stops;
         private BigDecimal  cost;
     }
 }

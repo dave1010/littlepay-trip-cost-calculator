@@ -20,5 +20,6 @@ public class Application implements CommandLineRunner {
 
     public void run(String... args) {
         tripCostCalculationService.calculateTripCosts();
+        System.exit(0);
     }
 }

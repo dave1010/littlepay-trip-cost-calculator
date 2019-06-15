@@ -18,5 +18,5 @@ public class Trip {
     private String companyId;
     private String busId;
     private String primaryAccountNumber;
-    private Status tripStatus;
+    private TripStatus tripStatus;
 }
