@@ -1,13 +1,10 @@
 package com.dekelpilli.tripcostcalculator.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.Instant;
-import java.time.OffsetDateTime;
 import java.util.Date;
 
 @Getter

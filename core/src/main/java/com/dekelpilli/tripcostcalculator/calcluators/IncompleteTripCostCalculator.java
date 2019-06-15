@@ -17,8 +17,6 @@ public final class IncompleteTripCostCalculator extends TripCostCalculator {
     private final Map<String, BigDecimal> stopIdMaximumCostMap;
 
     public IncompleteTripCostCalculator(TripCostCalculatorConfiguration tripCostCalculatorConfiguration) {
-        super(tripCostCalculatorConfiguration);
-
         stopIdMaximumCostMap = createMaximumCostsMap(tripCostCalculatorConfiguration.getCostMappings());
     }
 
@@ -41,12 +39,12 @@ public final class IncompleteTripCostCalculator extends TripCostCalculator {
     }
 
     @Override
-    public TripStatus getStatus() {
-        return TripStatus.INCOMPLETE;
+    public BigDecimal calculateChargeAmount(Tap tapOn, Tap tapOff) {
+        return stopIdMaximumCostMap.get(tapOn.getStopId());
     }
 
     @Override
-    BigDecimal calculateTripCost(Tap tapOn, Tap tapOff) {
-        return stopIdMaximumCostMap.get(tapOn.getStopId());
+    public TripStatus getStatus() {
+        return TripStatus.INCOMPLETE;
     }
 }

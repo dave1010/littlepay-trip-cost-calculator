@@ -10,20 +10,24 @@ import com.dekelpilli.tripcostcalculator.model.TripStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
+import java.math.RoundingMode;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
 public class TripCostCalculationService {
 
-    private final String inputFileName;
     private final CsvFileReader csvFileReader;
     private final TripCostCalculatorFactory tripCostCalculatorFactory;
+
+    private final String inputFileName;
+    private final String currencySymbol;
 
     public TripCostCalculationService(TripCostCalculatorConfiguration tripCostCalculatorConfiguration,
                                       TripCostCalculatorFactory tripCostCalculatorFactory,
                                       CsvFileReader csvFileReader) {
         inputFileName = tripCostCalculatorConfiguration.getInput();
+        currencySymbol = tripCostCalculatorConfiguration.getCurrencySymbol();
 
         this.csvFileReader = csvFileReader;
         this.tripCostCalculatorFactory = tripCostCalculatorFactory;
@@ -71,7 +75,8 @@ public class TripCostCalculationService {
         trip.setPrimaryAccountNumber(tapOn.getPrimaryAccountNumber());
 
         TripCostCalculator tripCostCalculator = tripCostCalculatorFactory.getCalculatorForStatus(tripStatus);
-        trip.setChargeAmount(tripCostCalculator.calculateChargeAmount(tapOn, tapOff));
+        trip.setChargeAmount(currencySymbol + tripCostCalculator.calculateChargeAmount(tapOn, tapOff)
+                .setScale(2, RoundingMode.HALF_UP));
         trip.setTripStatus(tripStatus);
         return trip;
     }
