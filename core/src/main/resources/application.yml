@@ -8,6 +8,7 @@ spring:
 trip-cost-calculator:
   input: input/taps.csv
   output: output/trips.csv
+  currency-symbol: "$"
   cost-mappings:
     - stops:
         - Stop1

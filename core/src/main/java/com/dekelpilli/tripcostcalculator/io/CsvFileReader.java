@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -33,7 +34,7 @@ public class CsvFileReader {
         return getObjectReaderFor(clazz).readValues(inputFile);
     }
 
-    private ObjectReader getObjectReaderFor(Class clazz) {
+    private <T> ObjectReader getObjectReaderFor(Class<T> clazz) {
         if (objectReaderCache.containsKey(clazz)) {
             return objectReaderCache.get(clazz);
         }

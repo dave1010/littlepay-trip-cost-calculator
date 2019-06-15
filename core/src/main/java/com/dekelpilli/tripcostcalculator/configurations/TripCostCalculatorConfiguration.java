@@ -17,6 +17,7 @@ import java.util.Set;
 public class TripCostCalculatorConfiguration {
     private String input;
     private String output;
+    private String currencySymbol;
     private Set<CostMapping> costMappings;
 
     @Setter
