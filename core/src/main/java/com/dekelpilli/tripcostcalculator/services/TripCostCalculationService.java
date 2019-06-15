@@ -42,6 +42,7 @@ public class TripCostCalculationService {
             String primaryAccountNumber = tap.getPrimaryAccountNumber();
             switch (tap.getTapType()) {
                 case ON:
+                    //TODO: if different busId, previous trip is also incomplete
                     touchedOnUsers.put(primaryAccountNumber, tap);
                     break;
                 case OFF:
@@ -49,6 +50,7 @@ public class TripCostCalculationService {
                     Trip trip = createTripFromTapPair(tapOn, tap);
                     trips.add(trip);
                     touchedOnUsers.remove(primaryAccountNumber);
+                    break;
             }
         });
         touchedOnUsers.values().forEach(tapOn ->

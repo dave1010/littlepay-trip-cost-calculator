@@ -33,7 +33,7 @@ public class CsvFileReader {
         return getObjectReaderFor(clazz).readValues(inputFile);
     }
 
-    private <T> ObjectReader getObjectReaderFor(Class<T> clazz) {
+    private ObjectReader getObjectReaderFor(Class<?> clazz) {
         if (objectReaderCache.containsKey(clazz)) {
             return objectReaderCache.get(clazz);
         }
