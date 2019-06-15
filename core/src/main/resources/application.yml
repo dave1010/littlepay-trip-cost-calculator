@@ -1,20 +1,23 @@
 spring:
   application:
     name: Trip Cost Calculator
+  jackson:
+    date-format: "dd-MM-yyyy HH:mm:ss"
+    time-zone: UTC
 
 trip-cost-calculator:
   input: input/taps.csv
   output: output/trips.csv
   cost-mappings:
     - stops:
-        - stop1
-        - stop2
+        - Stop1
+        - Stop2
       cost: 3.25
     - stops:
-        - stop2
-        - stop3
+        - Stop2
+        - Stop3
       cost: 5.50
     - stops:
-        - stop1
-        - stop3
+        - Stop1
+        - Stop3
       cost: 7.30

@@ -2,13 +2,15 @@ package com.dekelpilli.tripcostcalculator.io;
 
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 @Slf4j
 @Component
@@ -36,7 +38,7 @@ public class CsvFileReader {
             return objectReaderCache.get(clazz);
         }
 
-        ObjectReader objectReader = csvMapper.readerWithTypedSchemaFor(clazz);
+        ObjectReader objectReader = csvMapper.readerFor(clazz).with(CsvSchema.emptySchema().withHeader());
         objectReaderCache.put(clazz, objectReader);
         return objectReader;
     }

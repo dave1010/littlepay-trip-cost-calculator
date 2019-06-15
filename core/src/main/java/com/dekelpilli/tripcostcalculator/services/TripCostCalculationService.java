@@ -25,7 +25,6 @@ public class TripCostCalculationService {
     public void calculateTripCosts() {
         Iterator<Tap> tapIterator = csvFileReader.parse(inputFileName, Tap.class);
 
-        List<Tap> t = new ArrayList<>();
         System.out.println();
     }
 }
