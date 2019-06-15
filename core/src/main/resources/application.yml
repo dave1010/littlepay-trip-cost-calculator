@@ -5,10 +5,12 @@ spring:
     date-format: "dd-MM-yyyy HH:mm:ss"
     time-zone: UTC
 
+server.port: 0
+
 trip-cost-calculator:
   input: input/taps.csv
   output: output/trips.csv
-  currency-symbol: "$"
+  currency-symbol: $
   cost-mappings:
     - stops:
         - Stop1

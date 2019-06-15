@@ -50,7 +50,7 @@ public class TripCostCalculationService {
         touchedOnUsers.values().forEach(tapOn ->
                 trips.add(createTripFromTapPair(tapOn, null, TripStatus.INCOMPLETE))
         );
-        //TODO: write trips
+        System.out.println(); //TODO: write trips
     }
 
     private Trip createTripFromTapPair(Tap tapOn, @Nullable Tap tapOff, TripStatus tripStatus) {

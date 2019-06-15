@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.List;
 
 
 @Getter
@@ -23,7 +24,7 @@ public class TripCostCalculatorConfiguration {
     @Setter
     @Getter
     public static class CostMapping {
-        private Collection<String> stops;
+        private List<String> stops;
         private BigDecimal  cost;
     }
 }

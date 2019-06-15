@@ -12,11 +12,11 @@ import java.util.Map;
 
 
 @Component
-public class IncompleteTripCalculator extends TripCostCalculator {
+public final class IncompleteTripCostCalculator extends TripCostCalculator {
 
     private final Map<String, BigDecimal> stopIdMaximumCostMap;
 
-    public IncompleteTripCalculator(TripCostCalculatorConfiguration tripCostCalculatorConfiguration) {
+    public IncompleteTripCostCalculator(TripCostCalculatorConfiguration tripCostCalculatorConfiguration) {
         super(tripCostCalculatorConfiguration);
 
         stopIdMaximumCostMap = createMaximumCostsMap(tripCostCalculatorConfiguration.getCostMappings());

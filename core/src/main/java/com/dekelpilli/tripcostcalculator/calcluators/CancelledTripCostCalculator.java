@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public final class CancelledTripCalculator extends TripCostCalculator {
+public final class CancelledTripCostCalculator extends TripCostCalculator {
     private static final BigDecimal TRIP_COST = BigDecimal.ZERO.setScale(2);
 
-    public CancelledTripCalculator(TripCostCalculatorConfiguration tripCostCalculatorConfiguration) {
+    public CancelledTripCostCalculator(TripCostCalculatorConfiguration tripCostCalculatorConfiguration) {
         super(tripCostCalculatorConfiguration);
     }
 
