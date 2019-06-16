@@ -27,8 +27,8 @@
         <mockito2.version>2.28.2</mockito2.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
 
-        <jacoco-branch-coverage-minimum>0.9</jacoco-branch-coverage-minimum>
-        <jacoco-line-coverage-minimum>0.9</jacoco-line-coverage-minimum>
+        <jacoco-branch-coverage-minimum>0.8</jacoco-branch-coverage-minimum>
+        <jacoco-line-coverage-minimum>0.8</jacoco-line-coverage-minimum>
         <jacoco.skip>true</jacoco.skip> <!-- TODO: -->
     </properties>
 

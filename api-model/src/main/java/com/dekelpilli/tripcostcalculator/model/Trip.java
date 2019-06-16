@@ -14,9 +14,9 @@ import java.util.Date;
 @NoArgsConstructor
 public class Trip {
     @JsonProperty("Started")
-    private Date started;
+    private Date startedTime;
     @JsonProperty("Finished")
-    private Date finished;
+    private Date finishedTime;
     @JsonProperty("DurationSecs")
     private Long durationSeconds;
     @JsonProperty("FromStopId")
@@ -35,8 +35,8 @@ public class Trip {
     private TripStatus tripStatus;
 
     @JsonCreator
-    public Trip(@JsonProperty("Started") Date started,
-                @JsonProperty("Finished") Date finished,
+    public Trip(@JsonProperty("Started") Date startedTime,
+                @JsonProperty("Finished") Date finishedTime,
                 @JsonProperty("DurationSecs") Long durationSeconds,
                 @JsonProperty("FromStopId") String fromStopId,
                 @JsonProperty("ToStopId") String toStopId,
@@ -45,8 +45,8 @@ public class Trip {
                 @JsonProperty("BusID") String busId,
                 @JsonProperty("PAN") String primaryAccountNumber,
                 @JsonProperty("Status") TripStatus tripStatus) {
-        this.started = started;
-        this.finished = finished;
+        this.startedTime = startedTime;
+        this.finishedTime = finishedTime;
         this.durationSeconds = durationSeconds;
         this.fromStopId = fromStopId;
         this.toStopId = toStopId;

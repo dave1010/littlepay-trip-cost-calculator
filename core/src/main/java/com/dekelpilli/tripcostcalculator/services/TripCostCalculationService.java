@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -72,16 +73,17 @@ public class TripCostCalculationService {
         tapOnsForIncompleteTrips.forEach(tapOn ->
                 calculatedTrips.add(createTripFromTapPair(tapOn, null, TripStatus.INCOMPLETE))
         );
+        calculatedTrips.sort(Comparator.comparing(Trip::getStartedTime));
         csvFileWriter.createFile(outputFileName, calculatedTrips, Trip.class);
     }
 
     private Trip createTripFromTapPair(Tap tapOn, @Nullable Tap tapOff, TripStatus tripStatus) {
         Trip trip = new Trip();
         Date tapOnTime  = tapOn.getTapTime();
-        trip.setStarted(tapOnTime);
+        trip.setStartedTime(tapOnTime);
         if (tapOff != null) {
             Date tapOffTime = tapOff.getTapTime();
-            trip.setFinished(tapOffTime);
+            trip.setFinishedTime(tapOffTime);
             trip.setDurationSeconds(calculateTripDurationInSeconds(tapOnTime, tapOffTime));
 
             trip.setToStopId(tapOff.getStopId());
