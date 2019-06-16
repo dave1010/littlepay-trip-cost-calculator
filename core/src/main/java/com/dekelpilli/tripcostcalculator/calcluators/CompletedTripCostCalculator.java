@@ -13,7 +13,7 @@ import java.util.Map;
 
 
 @Component
-public final class CompletedTripCostCalculator implements TripCostCalculator {
+public class CompletedTripCostCalculator implements TripCostCalculator {
 
     private final Map<UnorderedPair<String>, BigDecimal> stopPairCostMap;
 

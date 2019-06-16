@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public final class CancelledTripCostCalculator implements TripCostCalculator {
+public class CancelledTripCostCalculator implements TripCostCalculator {
     private static final BigDecimal TRIP_COST = BigDecimal.ZERO.setScale(2);
 
     @Override
