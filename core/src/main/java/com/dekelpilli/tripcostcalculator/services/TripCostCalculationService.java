@@ -42,9 +42,9 @@ public class TripCostCalculationService {
         Iterator<Tap> taps = csvFileReader.parse(inputFileName, Tap.class);
 
         Map<String, Tap> tappedOnUsers = new HashMap<>();
-
         List<Trip> calculatedTrips = new ArrayList<>();
         List<Tap> tapOnsForIncompleteTrips = new ArrayList<>();
+
         taps.forEachRemaining(tap -> {
             String primaryAccountNumber = tap.getPrimaryAccountNumber();
             switch (tap.getTapType()) {
