@@ -4,11 +4,12 @@
 To build the app, you need to be using Java 11 and Maven 3.5.0+ (preferably 3.6.1). 
 Once you have set this up, simply run `mvn clean install` from the parent directory (where this file is).
 
-Once you have built the app, you can run it by executing the JAR. Again with Java 11, run the following command from the parent directory:
-`core/target/Trip-Cost-Calculator-App.jar`
+Once you have built the app, you can run it by executing the generated JAR, which will be `core/target/Trip-Cost-Calculator-App.jar`.
+Again with Java 11, run the following command from the parent directory:
+`java -jar Trip-Cost-Calculator-App.jar`
 
 By default, the app will look for input in `input/taps.csv`, and will output to `output/trips.csv`. You can overwrite with the `input` and `output` arguments:
-`core/target/Trip-Cost-Calculator-App.jar --input=core/src/test/resources/taps.csv --output=someOtherOutput.csv`
+`Trip-Cost-Calculator-App.jar --input=some/relative/path/taps.csv --output=some/relative/path/someOtherOutput.csv`
 
 Alternatively, from the `core` directory, run `mvn spring-boot:run`. Note that you will have to change the input for this.
 
