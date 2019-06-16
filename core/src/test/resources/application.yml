@@ -8,8 +8,8 @@ spring:
 server.port: 0
 
 trip-cost-calculator:
-  input: "${input:input/taps.csv}"
-  output: "${output:output/trips.csv}"
+  input: "${input:src/test/resources/taps.csv}"
+  output: "${output:src/test/output/trips.csv}"
   currency-symbol: $
   cost-mappings:
     - stops:

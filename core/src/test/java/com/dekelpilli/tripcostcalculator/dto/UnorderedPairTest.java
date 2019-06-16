@@ -1,13 +1,11 @@
 package com.dekelpilli.tripcostcalculator.dto;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -53,7 +51,6 @@ class UnorderedPairTest {
 
     private static <T> void assertUnorderedPairsNotEqual(UnorderedPair<T> unorderedPair1,
                                                          UnorderedPair<T> unorderedPair2) {
-
         assertNotEquals(unorderedPair1, unorderedPair2);
         assertNotEquals(unorderedPair1.hashCode(), unorderedPair2.hashCode());
     }

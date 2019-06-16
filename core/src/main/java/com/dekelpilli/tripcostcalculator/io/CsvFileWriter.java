@@ -25,6 +25,7 @@ public class CsvFileWriter {
 
     public <T> void createFile(String filename, List<T> data, Class<T> clazz) throws IOException {
         File outputFile = new File(filename);
+        outputFile.getParentFile().mkdirs();
         FileOutputStream tempFileOutputStream = new FileOutputStream(outputFile);
         BufferedOutputStream bufferedOutputStream
                 = new BufferedOutputStream(tempFileOutputStream, (int) FileSize.MB_COEFFICIENT);
