@@ -4,6 +4,7 @@ import com.dekelpilli.tripcostcalculator.calcluators.TripCostCalculator;
 import com.dekelpilli.tripcostcalculator.configurations.TripCostCalculatorConfiguration;
 import com.dekelpilli.tripcostcalculator.factories.TripCostCalculatorFactory;
 import com.dekelpilli.tripcostcalculator.io.CsvFileReader;
+import com.dekelpilli.tripcostcalculator.io.CsvFileWriter;
 import com.dekelpilli.tripcostcalculator.model.Tap;
 import com.dekelpilli.tripcostcalculator.model.Trip;
 import com.dekelpilli.tripcostcalculator.model.TripStatus;
@@ -23,18 +24,22 @@ import java.util.concurrent.TimeUnit;
 public class TripCostCalculationService {
 
     private final CsvFileReader csvFileReader;
+    private final CsvFileWriter csvFileWriter;
     private final TripCostCalculatorFactory tripCostCalculatorFactory;
 
     private final String inputFileName;
+    private final String outputFileName;
     private final String currencySymbol;
 
     public TripCostCalculationService(TripCostCalculatorConfiguration tripCostCalculatorConfiguration,
                                       TripCostCalculatorFactory tripCostCalculatorFactory,
-                                      CsvFileReader csvFileReader) {
+                                      CsvFileReader csvFileReader, CsvFileWriter csvFileWriter) {
         inputFileName = tripCostCalculatorConfiguration.getInput();
+        outputFileName = tripCostCalculatorConfiguration.getOutput();
         currencySymbol = tripCostCalculatorConfiguration.getCurrencySymbol();
 
         this.csvFileReader = csvFileReader;
+        this.csvFileWriter = csvFileWriter;
         this.tripCostCalculatorFactory = tripCostCalculatorFactory;
     }
 
@@ -66,7 +71,7 @@ public class TripCostCalculationService {
         tapOnsForIncompleteTrips.forEach(tapOn ->
                 calculatedTrips.add(createTripFromTapPair(tapOn, null, TripStatus.INCOMPLETE))
         );
-        System.out.println(); //TODO: write trips
+        csvFileWriter.createFile(outputFileName, calculatedTrips); //TODO: write trips
     }
 
     private Trip createTripFromTapPair(Tap tapOn, @Nullable Tap tapOff, TripStatus tripStatus) {
