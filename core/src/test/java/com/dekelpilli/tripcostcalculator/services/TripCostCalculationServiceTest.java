@@ -5,6 +5,7 @@ import com.dekelpilli.tripcostcalculator.calcluators.TripCostCalculator;
 import com.dekelpilli.tripcostcalculator.configurations.TripCostCalculatorConfiguration;
 import com.dekelpilli.tripcostcalculator.factories.TripCostCalculatorFactory;
 import com.dekelpilli.tripcostcalculator.io.CsvFileReader;
+import com.dekelpilli.tripcostcalculator.io.CsvFileWriter;
 import com.dekelpilli.tripcostcalculator.model.Tap;
 import com.dekelpilli.tripcostcalculator.model.TapType;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +35,9 @@ class TripCostCalculationServiceTest {
     private CsvFileReader csvFileReader;
 
     @Mock
+    private CsvFileWriter csvFileWriter;
+
+    @Mock
     private TripCostCalculatorFactory tripCostCalculatorFactory;
 
     @Mock
@@ -49,12 +54,12 @@ class TripCostCalculationServiceTest {
         when(tripCostCalculatorConfiguration.getCurrencySymbol()).thenReturn(CURRENCY);
 
         tripCostCalculationService = new TripCostCalculationService(tripCostCalculatorConfiguration,
-                tripCostCalculatorFactory, csvFileReader);
+                tripCostCalculatorFactory, csvFileReader, csvFileWriter);
     }
 
     @Test
     @Disabled
-    void givenDataForSingleCompleteTrip__GetsCompletedTripCostForGivenStopsAndWitesToFile() {
+    void givenDataForSingleCompleteTrip__GetsCompletedTripCostForGivenStopsAndWitesToFile() throws IOException {
 
         String stop1 = RandomStringUtils.randomAlphabetic(10);
         String stop2 = RandomStringUtils.randomAlphabetic(9);

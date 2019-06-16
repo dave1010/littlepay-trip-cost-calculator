@@ -6,6 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.IOException;
+
 
 @AllArgsConstructor
 @SpringBootApplication
@@ -17,7 +19,7 @@ public class Application implements CommandLineRunner {
         SpringApplication.run(Application.class, args);
     }
 
-    public void run(String... args) {
+    public void run(String... args) throws IOException {
         tripCostCalculationService.calculateTripCosts();
         System.exit(0);
     }

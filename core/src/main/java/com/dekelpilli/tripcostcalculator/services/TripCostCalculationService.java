@@ -11,6 +11,7 @@ import com.dekelpilli.tripcostcalculator.model.TripStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,7 +44,7 @@ public class TripCostCalculationService {
         this.tripCostCalculatorFactory = tripCostCalculatorFactory;
     }
 
-    public void calculateTripCosts() {
+    public void calculateTripCosts() throws IOException {
         Iterator<Tap> taps = csvFileReader.parse(inputFileName, Tap.class);
 
         Map<String, Tap> tappedOnUsers = new HashMap<>();
@@ -71,7 +72,7 @@ public class TripCostCalculationService {
         tapOnsForIncompleteTrips.forEach(tapOn ->
                 calculatedTrips.add(createTripFromTapPair(tapOn, null, TripStatus.INCOMPLETE))
         );
-        csvFileWriter.createFile(outputFileName, calculatedTrips); //TODO: write trips
+        csvFileWriter.createFile(outputFileName, calculatedTrips, Trip.class);
     }
 
     private Trip createTripFromTapPair(Tap tapOn, @Nullable Tap tapOff, TripStatus tripStatus) {
