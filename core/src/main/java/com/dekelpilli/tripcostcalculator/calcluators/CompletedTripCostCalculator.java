@@ -12,7 +12,7 @@ import java.util.Map;
 
 
 @Component
-public final class CompletedTripCostCalculator extends TripCostCalculator {
+public final class CompletedTripCostCalculator implements TripCostCalculator {
 
     private Map<UnorderedPair<String>, BigDecimal> stopPairCostMap;
 

@@ -7,12 +7,12 @@ public class UnorderedPair<T> {
     private final T value2;
 
     public UnorderedPair(T value1, T value2) {
-        this.value1 = value1;
-        this.value2 = value2;
-
         if (value1.equals(value2)) {
             throw new IllegalArgumentException("Provided values must be different");
         }
+
+        this.value1 = value1;
+        this.value2 = value2;
     }
 
     public static <T> UnorderedPair<T> fromList(List<T> valueList) {

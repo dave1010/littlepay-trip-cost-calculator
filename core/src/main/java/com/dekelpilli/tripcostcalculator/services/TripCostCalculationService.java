@@ -11,7 +11,12 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.math.RoundingMode;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -36,25 +41,30 @@ public class TripCostCalculationService {
     public void calculateTripCosts() {
         Iterator<Tap> taps = csvFileReader.parse(inputFileName, Tap.class);
 
-        Map<String, Tap> touchedOnUsers = new HashMap<>();
-        List<Trip> trips = new ArrayList<>();
+        Map<String, Tap> tappedOnUsers = new HashMap<>();
+
+        List<Trip> calculatedTrips = new ArrayList<>();
+        List<Tap> tapOnsForIncompleteTrips = new ArrayList<>();
         taps.forEachRemaining(tap -> {
             String primaryAccountNumber = tap.getPrimaryAccountNumber();
             switch (tap.getTapType()) {
                 case ON:
-                    //TODO: if different busId, previous trip is also incomplete
-                    touchedOnUsers.put(primaryAccountNumber, tap);
+                    if (tappedOnUsers.containsKey(primaryAccountNumber)) {
+                        tapOnsForIncompleteTrips.add(tappedOnUsers.get(primaryAccountNumber));
+                    }
+                    tappedOnUsers.put(primaryAccountNumber, tap);
                     break;
                 case OFF:
-                    Tap tapOn = touchedOnUsers.get(primaryAccountNumber);
+                    Tap tapOn = tappedOnUsers.get(primaryAccountNumber);
                     Trip trip = createTripFromTapPair(tapOn, tap);
-                    trips.add(trip);
-                    touchedOnUsers.remove(primaryAccountNumber);
+                    calculatedTrips.add(trip);
+                    tappedOnUsers.remove(primaryAccountNumber);
                     break;
             }
         });
-        touchedOnUsers.values().forEach(tapOn ->
-                trips.add(createTripFromTapPair(tapOn, null, TripStatus.INCOMPLETE))
+        tapOnsForIncompleteTrips.addAll(tappedOnUsers.values());
+        tapOnsForIncompleteTrips.forEach(tapOn ->
+                calculatedTrips.add(createTripFromTapPair(tapOn, null, TripStatus.INCOMPLETE))
         );
         System.out.println(); //TODO: write trips
     }
