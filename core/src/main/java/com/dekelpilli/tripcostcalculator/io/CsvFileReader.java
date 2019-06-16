@@ -7,6 +7,7 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 
 @Component
@@ -15,8 +16,7 @@ public class CsvFileReader {
 
     private final CsvMapper csvMapper;
 
-    @SneakyThrows //TODO: deal with bad csvs
-    public <T> Iterator<T> parse(String filename, Class<T> clazz) {
+    public <T> Iterator<T> parse(String filename, Class<T> clazz) throws IOException {
 
         File inputFile = new File(filename);
         return csvMapper.readerFor(clazz).with(CsvSchema.emptySchema().withHeader()).readValues(inputFile);

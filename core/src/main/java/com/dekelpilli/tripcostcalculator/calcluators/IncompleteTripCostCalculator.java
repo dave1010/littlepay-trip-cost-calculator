@@ -20,7 +20,7 @@ public final class IncompleteTripCostCalculator implements TripCostCalculator {
         stopIdMaximumCostMap = createMaximumCostsMap(tripCostCalculatorConfiguration.getCostMappings());
     }
 
-    private Map<String, BigDecimal> createMaximumCostsMap(
+    private static Map<String, BigDecimal> createMaximumCostsMap(
             Collection<TripCostCalculatorConfiguration.CostMapping> costMappings) {
 
         HashMap<String, BigDecimal> maximumCostsMap = new HashMap<>();
