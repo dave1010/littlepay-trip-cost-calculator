@@ -13,10 +13,9 @@ import com.dekelpilli.tripcostcalculator.model.TripStatus;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -33,7 +32,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-@ExtendWith(MockitoExtension.class)
+@MockitoSettings
 class TripCostCalculationServiceTest {
 
     private static final String INPUT = RandomStringUtils.randomAlphabetic(10);

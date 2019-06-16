@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedOutputStream;
@@ -16,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 
+@Slf4j
 @Component
 @AllArgsConstructor
 public class CsvFileWriter {
@@ -31,5 +33,6 @@ public class CsvFileWriter {
         CsvSchema clazzSchema = csvMapper.schemaFor(clazz).withHeader().withoutQuoteChar();
         ObjectWriter clazzObjectWriter = csvMapper.writer(clazzSchema);
         clazzObjectWriter.writeValue(writerOutputStream, data);
+        log.info("Successfully written {} items to {}", data.size(), filename);
     }
 }

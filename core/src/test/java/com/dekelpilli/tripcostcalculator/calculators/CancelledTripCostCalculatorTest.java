@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-class CancelledTripLogCalculatorTest {
+class CancelledTripCostCalculatorTest {
     private CancelledTripCostCalculator cancelledTripCostCalculator;
 
     @BeforeEach

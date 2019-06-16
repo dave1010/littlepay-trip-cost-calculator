@@ -8,3 +8,4 @@ java -jar with 11
 1. We can't get an OFF without a corresponding ON for that user
 1. The data given is already sorted by time (earliest event first), as per the example
 1. Just as the input should be sorted, so should the output
+1. We have the cost mappings for each pair of stops

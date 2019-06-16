@@ -200,6 +200,7 @@
                                     <excludes>
                                         <exclude>*Test</exclude>
                                         <exclude>*IT</exclude>
+                                        <exclude>com.dekelpilli.tripcostcalculator.Application</exclude>
                                     </excludes>
                                     <limits>
                                         <limit>
