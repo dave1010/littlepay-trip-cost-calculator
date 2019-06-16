@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
+
 @Component
 public class TripCostCalculatorFactory {
 

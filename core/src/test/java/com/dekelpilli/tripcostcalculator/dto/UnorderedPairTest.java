@@ -12,6 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UnorderedPairTest {
 
+    private static <T> void assertUnorderedPairsNotEqual(UnorderedPair<T> unorderedPair1,
+                                                         UnorderedPair<T> unorderedPair2) {
+        assertNotEquals(unorderedPair1, unorderedPair2);
+        assertNotEquals(unorderedPair1.hashCode(), unorderedPair2.hashCode());
+    }
+
     @Test
     void givenListOfSizeOtherThan2__ThrowsException() {
         assertThrows(IllegalArgumentException.class,
@@ -47,11 +53,5 @@ class UnorderedPairTest {
         assertUnorderedPairsNotEqual(unorderedPair1, unorderedPair2);
         assertUnorderedPairsNotEqual(unorderedPair1, unorderedPair3);
         assertUnorderedPairsNotEqual(unorderedPair2, unorderedPair3);
-    }
-
-    private static <T> void assertUnorderedPairsNotEqual(UnorderedPair<T> unorderedPair1,
-                                                         UnorderedPair<T> unorderedPair2) {
-        assertNotEquals(unorderedPair1, unorderedPair2);
-        assertNotEquals(unorderedPair1.hashCode(), unorderedPair2.hashCode());
     }
 }

@@ -23,6 +23,15 @@ class IncompleteTripCostCalculatorTest {
 
     private IncompleteTripCostCalculator incompleteTripCostCalculator;
 
+    private static TripCostCalculatorConfiguration.CostMapping createCostMapping(BigDecimal cost,
+                                                                                 String stop1, String stop2) {
+
+        TripCostCalculatorConfiguration.CostMapping costMapping = new TripCostCalculatorConfiguration.CostMapping();
+        costMapping.setCost(cost);
+        costMapping.setStops(List.of(stop1, stop2));
+        return costMapping;
+    }
+
     @BeforeEach
     void setup() {
         tripCostCalculatorConfiguration = new TripCostCalculatorConfiguration();
@@ -56,14 +65,5 @@ class IncompleteTripCostCalculatorTest {
         Tap tapOn = mock(Tap.class);
         when(tapOn.getStopId()).thenReturn(stopId);
         return incompleteTripCostCalculator.calculateChargeAmount(tapOn, null);
-    }
-
-    private static TripCostCalculatorConfiguration.CostMapping createCostMapping(BigDecimal cost,
-                                                                                 String stop1, String stop2) {
-
-        TripCostCalculatorConfiguration.CostMapping costMapping = new TripCostCalculatorConfiguration.CostMapping();
-        costMapping.setCost(cost);
-        costMapping.setStops(List.of(stop1, stop2));
-        return costMapping;
     }
 }

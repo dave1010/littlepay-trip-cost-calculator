@@ -2,7 +2,6 @@ package com.dekelpilli.tripcostcalculator.calculators;
 
 
 import com.dekelpilli.tripcostcalculator.calcluators.CompletedTripCostCalculator;
-import com.dekelpilli.tripcostcalculator.calcluators.IncompleteTripCostCalculator;
 import com.dekelpilli.tripcostcalculator.configurations.TripCostCalculatorConfiguration;
 import com.dekelpilli.tripcostcalculator.model.Tap;
 import com.dekelpilli.tripcostcalculator.model.TripStatus;
@@ -23,6 +22,15 @@ class CompletedTripCostCalculatorTest {
 
     private CompletedTripCostCalculator completedTripCostCalculator;
     private TripCostCalculatorConfiguration tripCostCalculatorConfiguration;
+
+    private static TripCostCalculatorConfiguration.CostMapping createCostMapping(BigDecimal cost,
+                                                                                 String stop1, String stop2) {
+
+        TripCostCalculatorConfiguration.CostMapping costMapping = new TripCostCalculatorConfiguration.CostMapping();
+        costMapping.setCost(cost);
+        costMapping.setStops(List.of(stop1, stop2));
+        return costMapping;
+    }
 
     @BeforeEach
     void setup() {
@@ -66,14 +74,5 @@ class CompletedTripCostCalculatorTest {
         tripCostCalculatorConfiguration.setCostMappings(Collections.emptyList());
         completedTripCostCalculator = new CompletedTripCostCalculator(tripCostCalculatorConfiguration);
         assertEquals(TripStatus.COMPLETED, completedTripCostCalculator.getStatus());
-    }
-
-    private static TripCostCalculatorConfiguration.CostMapping createCostMapping(BigDecimal cost,
-                                                                                 String stop1, String stop2) {
-
-        TripCostCalculatorConfiguration.CostMapping costMapping = new TripCostCalculatorConfiguration.CostMapping();
-        costMapping.setCost(cost);
-        costMapping.setStops(List.of(stop1, stop2));
-        return costMapping;
     }
 }

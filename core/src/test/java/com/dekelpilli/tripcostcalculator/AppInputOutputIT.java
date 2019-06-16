@@ -35,13 +35,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         CompletedTripCostCalculator.class, TripCostCalculatorFactory.class, JacksonConfiguration.class})
 class AppInputOutputIT {
 
+    private static boolean firstTime = true;
+    private static List<Trip> writtenTrips;
     private final CsvFileReader csvFileReader;
     private final TripCostCalculatorConfiguration tripCostCalculatorConfiguration;
     private final TripCostCalculationService tripCostCalculationService;
-
-    private static boolean firstTime = true;
-
-    private static List<Trip> writtenTrips;
 
     /**
      * This setup will run the app against a test file then load the output.

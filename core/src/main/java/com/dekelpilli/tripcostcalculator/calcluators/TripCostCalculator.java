@@ -5,6 +5,7 @@ import com.dekelpilli.tripcostcalculator.model.TripStatus;
 
 import java.math.BigDecimal;
 
+
 public interface TripCostCalculator {
 
     BigDecimal calculateChargeAmount(Tap tapOn, Tap tapOff);

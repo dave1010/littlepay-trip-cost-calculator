@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Iterator;
+
 
 @Component
 @AllArgsConstructor
@@ -18,7 +18,6 @@ public class CsvFileReader {
 
     public <T> Iterator<T> parse(String filename, Class<T> clazz) throws IOException {
 
-        filename = Paths.get("").toAbsolutePath().toString() + File.separator + filename;
         File inputFile = new File(filename);
         return csvMapper.readerFor(clazz).with(CsvSchema.emptySchema().withHeader()).readValues(inputFile);
     }

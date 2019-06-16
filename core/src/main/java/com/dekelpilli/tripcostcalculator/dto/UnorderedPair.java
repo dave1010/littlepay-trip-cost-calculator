@@ -2,6 +2,7 @@ package com.dekelpilli.tripcostcalculator.dto;
 
 import java.util.List;
 
+
 public class UnorderedPair<T> {
     private final T value1;
     private final T value2;

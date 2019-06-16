@@ -29,8 +29,7 @@ public class IncompleteTripCostCalculator implements TripCostCalculator {
             costMapping.getStops().forEach(stopId -> {
                 if (maximumCostsMap.containsKey(stopId)) {
                     maximumCostsMap.put(stopId, maximumCostsMap.get(stopId).max(cost));
-                }
-                else {
+                } else {
                     maximumCostsMap.put(stopId, cost);
                 }
             });

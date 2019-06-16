@@ -25,6 +25,6 @@ public class TripCostCalculatorConfiguration {
     @Getter
     public static class CostMapping {
         private List<String> stops;
-        private BigDecimal  cost;
+        private BigDecimal cost;
     }
 }

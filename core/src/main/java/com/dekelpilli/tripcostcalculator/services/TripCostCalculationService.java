@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+
 @Service
 public class TripCostCalculationService {
 
@@ -43,6 +44,17 @@ public class TripCostCalculationService {
         this.csvFileReader = csvFileReader;
         this.csvFileWriter = csvFileWriter;
         this.tripCostCalculatorFactory = tripCostCalculatorFactory;
+    }
+
+    private static long calculateTripDurationInSeconds(Date tapOnTime, Date tapOffTime) {
+        return TimeUnit.MILLISECONDS.toSeconds(tapOffTime.getTime() - tapOnTime.getTime());
+    }
+
+    private static TripStatus getTripStatus(Tap tapOn, Tap tapOff) {
+        if (tapOn.getStopId().equals(tapOff.getStopId())) {
+            return TripStatus.CANCELLED;
+        }
+        return TripStatus.COMPLETED;
     }
 
     public void calculateTripCosts() throws IOException {
@@ -79,7 +91,7 @@ public class TripCostCalculationService {
 
     private Trip createTripFromTapPair(Tap tapOn, @Nullable Tap tapOff, TripStatus tripStatus) {
         Trip trip = new Trip();
-        Date tapOnTime  = tapOn.getTapTime();
+        Date tapOnTime = tapOn.getTapTime();
         trip.setStartedTime(tapOnTime);
         if (tapOff != null) {
             Date tapOffTime = tapOff.getTapTime();
@@ -103,16 +115,5 @@ public class TripCostCalculationService {
 
     private Trip createTripFromTapPair(Tap tapOn, Tap tapOff) {
         return createTripFromTapPair(tapOn, tapOff, getTripStatus(tapOn, tapOff));
-    }
-
-    private static long calculateTripDurationInSeconds(Date tapOnTime, Date tapOffTime) {
-        return TimeUnit.MILLISECONDS.toSeconds(tapOffTime.getTime() - tapOnTime.getTime());
-    }
-
-    private static TripStatus getTripStatus(Tap tapOn, Tap tapOff) {
-        if (tapOn.getStopId().equals(tapOff.getStopId())) {
-            return TripStatus.CANCELLED;
-        }
-        return TripStatus.COMPLETED;
     }
 }
